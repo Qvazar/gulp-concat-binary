@@ -78,7 +78,7 @@ module.exports = function(file, opt) {
       for (
             var i = 0, l = concatBuffers.length, concatIndex = 0;
             i < l;
-            ++i, concatIndex += buffer.length
+            concatIndex += concatBuffers[i].length, ++i
           ) {
         concatBuffers[i].copy(joinedFile.contents, concatIndex);
       }
@@ -88,7 +88,7 @@ module.exports = function(file, opt) {
       if (mapping) {
         var mapFile = joinedFile.clone({contents:false});
         mapFile.path = path.join(joinedFile.base, mapFileName);
-        mapFile.contents = JSON.stringify(mapping);
+        mapFile.contents = new Buffer(JSON.stringify(mapping));
         this.emit('data', mapFile);
       }
     }
