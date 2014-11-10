@@ -56,7 +56,7 @@ module.exports = function(file, opt) {
     if (isMappingEnabled) {
       mapping = mapping || {};
 
-      mapping[file.relative] = {
+      mapping[file.relative.replace(/\\/g, '/')] = {
         index: totalLength,
         length: fileLength
       };
